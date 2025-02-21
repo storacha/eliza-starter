@@ -1,14 +1,14 @@
 import { PostgresDatabaseAdapter } from "@elizaos/adapter-postgres";
 import { SqliteDatabaseAdapter } from "@elizaos/adapter-sqlite";
-import { StorachaDatabaseAdapter } from "@storacha/elizaos-adapter";
+import { DatabaseAdapter } from "@storacha/elizaos-adapter";
 import Database from "better-sqlite3";
 import path from "path";
 
 export function initializeDatabase(dataDir: string) {
-  if (process.env.STORACHA_DELEGATION && process.env.STORACHA_AGENT_PRIVATE_KEY) {
-    const db = new StorachaDatabaseAdapter({
-      delegation: process.env.STORACHA_DELEGATION,
-      storachaAgentPrivateKey: process.env.STORACHA_AGENT_PRIVATE_KEY
+  if (process.env.STORACHA_AGENT_DELEGATION && process.env.STORACHA_AGENT_PRIVATE_KEY) {
+    const db = new DatabaseAdapter({
+      agentPrivateKey: process.env.STORACHA_AGENT_PRIVATE_KEY,
+      agentDelegation: process.env.STORACHA_AGENT_DELEGATION,
     });
     return db;
   } else if (process.env.POSTGRES_URL) {
